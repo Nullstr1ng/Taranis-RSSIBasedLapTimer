@@ -473,7 +473,7 @@ local function lapsSpeakProgress()
 			playFile(SOUND_LAP)
 			playNumber(lapNumber, 0)
 			playFile(SOUND_TIME)
-			playNumber(laps[#laps][2]/10, 24, PREC1)
+			playNumber(laps[#laps][2]/10, 26, PREC1)
 		end
 	end
 	
@@ -624,7 +624,7 @@ local function timer_func(keyEvent)
 	if showTiming then
 		timerDraw()
 
-		laps_show(170, 3, 6)
+		laps_show(175, 3, 6)
 	end
 end
 
