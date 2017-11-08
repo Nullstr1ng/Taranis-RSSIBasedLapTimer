@@ -79,6 +79,15 @@ local lapSpokeMid = false
 
 -----------------------------------------------------------------------
 --
+-- OpenTx version
+--
+-----------------------------------------------------------------------
+
+local ver, radio, maj, minor, rev = getVersion();
+local version = maj..'.'..minor..'.'..rev;
+
+-----------------------------------------------------------------------
+--
 -- Helper Methods (Generic)
 --
 -----------------------------------------------------------------------
@@ -422,7 +431,13 @@ local function timerDraw()
 	local tickNow = getTime()
 	local tickDiff = tickNow - lapStartTicks
 	
-	lcd.drawNumber(65, 3, tickDiff, PREC2 + DBLSIZE)
+	if maj == 2 then
+		if minor == 1 then
+			lcd.drawNumber(65, 3, tickDiff, PREC2 + DBLSIZE)
+		elseif minor == 2 then
+			lcd.drawNumber(15, 3, tickDiff, PREC2 + DBLSIZE)
+		end
+	end
 	
 	if ConfigBeepOnMidLap and lapSpokeMid == false then
 		local lastIndex = #laps
@@ -473,7 +488,14 @@ local function lapsSpeakProgress()
 			playFile(SOUND_LAP)
 			playNumber(lapNumber, 0)
 			playFile(SOUND_TIME)
-			playNumber(laps[#laps][2]/10, 24, PREC1)
+			
+			if maj == 2 then
+				if minor == 1 then
+					playNumber(laps[#laps][2]/10, 24, PREC1)
+				elseif minor == 2 then
+					playNumber(laps[#laps][2]/10, 26, PREC1)
+				end
+			end			
 		end
 	end
 	
@@ -543,13 +565,25 @@ local function timer_func(keyEvent)
 		lcd.drawFilledRectangle(0, 22, 70, 11, BLACK)	
 		lcd.drawText(30, 24, 'Cur', INVERS)
 
-		lcd.drawFilledRectangle(0, 53, 70, 11, BLACK)	
-		lcd.drawNumber(65, 35, avg, PREC2 + DBLSIZE)
+		lcd.drawFilledRectangle(0, 53, 70, 11, BLACK)
+		if maj == 2 then
+			if minor == 1 then
+				lcd.drawNumber(65, 35, avg, PREC2 + DBLSIZE)
+			elseif minor == 2 then
+				lcd.drawNumber(15, 35, avg, PREC2 + DBLSIZE)
+			end
+		end			
 		lcd.drawText(30, 55, 'Avg', INVERS)
 	
 		-- Column 2	
 		lcd.drawFilledRectangle(70, 22, 70, 11, BLACK)
-		lcd.drawNumber(135, 3, diff, PREC2 + DBLSIZE)
+		if maj == 2 then
+			if minor == 1 then
+				lcd.drawNumber(135, 3, diff, PREC2 + DBLSIZE)
+			elseif minor == 2 then
+				lcd.drawNumber(87, 3, diff, PREC2 + DBLSIZE)
+			end
+		end			
 		lcd.drawText(98, 25, 'Diff', INVERS)
 	
 		lcd.drawFilledRectangle(70, 53, 70, 11, BLACK)
@@ -558,8 +592,15 @@ local function timer_func(keyEvent)
 		lcd.drawLine(70, 0, 70, 63, SOLID, FORCE)
 		lcd.drawLine(140, 0, 140, 63, SOLID, FORCE)
 
-		lcd.drawNumber(98, 35, lapNumber, DBLSIZE)
-		lcd.drawNumber(135, 35, lapCount, DBLSIZE)
+		if maj == 2 then
+			if minor == 1 then
+				lcd.drawNumber(98, 35, lapNumber, DBLSIZE)
+				lcd.drawNumber(135, 35, lapCount, DBLSIZE)
+			elseif minor == 2 then
+				lcd.drawNumber(80, 35, lapNumber, DBLSIZE)
+				lcd.drawNumber(115, 35, lapCount, DBLSIZE)
+			end
+		end			
 		lcd.drawText(102, 42, 'of')
 
 		-- Outline
@@ -624,7 +665,7 @@ local function timer_func(keyEvent)
 	if showTiming then
 		timerDraw()
 
-		laps_show(170, 3, 6)
+		laps_show(175, 3, 6)
 	end
 end
 
