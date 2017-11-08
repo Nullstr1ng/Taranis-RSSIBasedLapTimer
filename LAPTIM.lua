@@ -422,7 +422,7 @@ local function timerDraw()
 	local tickNow = getTime()
 	local tickDiff = tickNow - lapStartTicks
 	
-	lcd.drawNumber(65, 3, tickDiff, PREC2 + DBLSIZE)
+	lcd.drawNumber(15, 3, tickDiff, PREC2 + DBLSIZE)
 	
 	if ConfigBeepOnMidLap and lapSpokeMid == false then
 		local lastIndex = #laps
@@ -544,12 +544,12 @@ local function timer_func(keyEvent)
 		lcd.drawText(30, 24, 'Cur', INVERS)
 
 		lcd.drawFilledRectangle(0, 53, 70, 11, BLACK)	
-		lcd.drawNumber(65, 35, avg, PREC2 + DBLSIZE)
+		lcd.drawNumber(15, 35, avg, PREC2 + DBLSIZE)
 		lcd.drawText(30, 55, 'Avg', INVERS)
 	
 		-- Column 2	
 		lcd.drawFilledRectangle(70, 22, 70, 11, BLACK)
-		lcd.drawNumber(135, 3, diff, PREC2 + DBLSIZE)
+		lcd.drawNumber(87, 3, diff, PREC2 + DBLSIZE)
 		lcd.drawText(98, 25, 'Diff', INVERS)
 	
 		lcd.drawFilledRectangle(70, 53, 70, 11, BLACK)
@@ -558,8 +558,8 @@ local function timer_func(keyEvent)
 		lcd.drawLine(70, 0, 70, 63, SOLID, FORCE)
 		lcd.drawLine(140, 0, 140, 63, SOLID, FORCE)
 
-		lcd.drawNumber(98, 35, lapNumber, DBLSIZE)
-		lcd.drawNumber(135, 35, lapCount, DBLSIZE)
+		lcd.drawNumber(80, 35, lapNumber, DBLSIZE)
+		lcd.drawNumber(115, 35, lapCount, DBLSIZE)
 		lcd.drawText(102, 42, 'of')
 
 		-- Outline
